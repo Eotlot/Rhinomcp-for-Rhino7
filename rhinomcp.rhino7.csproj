@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <TargetExt>.rhp</TargetExt>
+    <NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <!-- Specifies information for Assembly and Yak -->
+    <Version>0.1.3.6</Version>
+    <Title>rhinomcp</Title>
+    <Company>Jingcheng Chen</Company>
+    <Description>Rhino integration through the Model Context Protocol</Description>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RhinoCommon" Version="7.36.23346.16351" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <Exec Command="cp $(TargetDir)rhinomcp.rhp '/Applications/Rhino 7.app/Contents/PlugIns/'" />
+  </Target>
+  
+</Project>
+
